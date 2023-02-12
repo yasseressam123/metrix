@@ -1,0 +1,33 @@
+<header class="loginHeader">
+  <img src="../../../assets/login/logo.png" alt="logo">
+</header>
+<form [formGroup]="signInForm" (ngSubmit)="signIn(signInForm)" class="login-cont">
+  <div class="login-box">
+      <p class="login-box-title">Login</p>
+      <p class="alert alert-danger" *ngIf="invalidLogin">Please Enter Correct Email and Password</p>
+      <div class="login-box-input">
+          <label for="">User name</label>
+          <input type="text" formControlName="email"
+          id="email" placeholder="enter your user name">
+          <div  *ngIf="signInForm.controls.email.touched && signInForm.controls.email.errors != null">
+            <span *ngIf="signInForm.controls.email.errors!['required']">The username You Entered Is Incorrect</span>
+          </div>
+      </div>
+      <div class="login-box-input">
+          <label for="">Password</label>
+          <div class="password-cont">
+              <input type="password" formControlName="password"
+              id="password" placeholder="enter your password">
+              <!-- <svg class="password-eye" xmlns="http://www.w3.org/2000/svg" width="23.264" height="15.509" viewBox="0 0 23.264 15.509">
+                  <path data-name="Icon awesome-eye" d="M23.123 11.665A12.954 12.954 0 0 0 11.632 4.5 12.956 12.956 0 0 0 .141 11.665a1.307 1.307 0 0 0 0 1.179 12.954 12.954 0 0 0 11.491 7.165 12.956 12.956 0 0 0 11.491-7.165 1.307 1.307 0 0 0 0-1.179zm-11.491 6.406a5.816 5.816 0 1 1 5.816-5.816 5.816 5.816 0 0 1-5.816 5.816zm0-9.693a3.849 3.849 0 0 0-1.022.153 1.933 1.933 0 0 1-2.7 2.7 3.868 3.868 0 1 0 3.724-2.855z" transform="translate(0 -4.5)" style="fill:#0094d9"/>
+              </svg> -->
+              <div  *ngIf="signInForm.controls.password.touched && signInForm.controls.password.errors != null">
+                <span *ngIf="signInForm.controls.password.errors!['required']">The password you entered is incorrect</span>
+              </div>
+          </div>
+      </div>
+      <div class="login-box-input-btn">
+          <button type="submit">Login</button>
+      </div>
+  </div>
+</form>

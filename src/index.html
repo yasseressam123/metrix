@@ -6,8 +6,272 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <link href="https://fonts.googleapis.com/css?family=Cairo&display=swap" rel="stylesheet">
+    <!-- Fontawesome -->
+    <link rel="stylesheet" type="text/css" href="/assets/vendor/fontawesome-free-5.9.0-web/css/all.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <!--demorse-->
+    <link href="/assets/vendor/dsmorse/css/dsmorsecss.css" type="text/css" rel="stylesheet" />
+    <link href="/assets/vendor/dsmorse/css/jquery.gridster.min.css" type="text/css" rel="stylesheet" />
+    <!--Scroll-->
+    <link href="/assets/vendor/OverlayScrollbars-master/css/OverlayScrollbars.min.css" type="text/css" rel="stylesheet" />
+    <!-- Select2 styles -->
+    <link href="/assets/css/select2.min.css" type="text/css" rel="stylesheet" />
+    <!--multi select-->
+    <link href="/assets/vendor/multi select/fm.selectator.jquery.css" type="text/css" rel="stylesheet" />
+    <!--Gantt Chart-->
+    <link href="/assets/vendor/gantt-chart/frappe-gantt.css" type="text/css" rel="stylesheet" />
+    <!-- dragtable -->
+    <link href="/assets/vendor/dragtable/css/akottr.css" type="text/css" rel="stylesheet" />
+    <link href="/assets/vendor/dragtable/css/dragtable.css" type="text/css" rel="stylesheet" />
+    <!-- Custom styles -->
+    <link href="/assets/css/style.css" type="text/css" rel="stylesheet">
+
+    <!-- components -->
+    <link href="/assets/css/components/side-menu.css" type="text/css" rel="stylesheet" />
+    <!-- components styles -->
+    <link href="/assets/css/components/header.css" type="text/css" rel="stylesheet" />
+    <link href="/assets/css/components/menu.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
   <app-root></app-root>
+
+  <!-- /#wrapper -->
+    <!-- Bootstrap core JavaScript -->
+    <script src="/assets/vendor/jquery/1.9.1jquery.min.js"></script>
+    <script src="/assets/vendor/jquery/jquery-ui.min.js"></script>
+    <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Select2 searchable JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <!--Color Picker-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+    <script src="https://unpkg.com/vue-color/dist/vue-color.min.js"></script>
+    <!-- highcharts -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/sankey.js"></script>
+    <script src="https://code.highcharts.com/modules/organization.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <!--demorse-->
+    <script src="/assets/vendor/dsmorse/js/jquery.gridster.min.js"></script>
+    <!--Scroll-->
+    <script src="/assets/vendor/OverlayScrollbars-master/js/OverlayScrollbars.min.js"></script>
+
+    <!--Multi select-->
+    <script src="/assets/vendor/multi select/fm.selectator.jquery.js"></script>
+
+    <!-- dragtable -->
+    <script src="/assets/vendor/dragtable/js/jquery.dragtable.js"></script>
+
+    <!--Gantt Chart-->
+    <script src="/assets/vendor/gantt-chart/frappe-gantt.js"></script>
+    <script src="/assets/vendor/gantt-chart/demo.project-gantt.js"></script>
+    <!--Main Script File-->
+    <script src="/assets/js/scripts.js"></script>
+
+    <!-- dragtable -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.dragtable').dragtable({ dragHandle: '.some-handle' });
+
+            $('.dragtable').dragtable({ dragaccept: '.accept' });
+        });
+    </script>
+
+    <!--Dynamic Tabs-->
+    <script>
+        var hidWidth;
+        var scrollBarWidths = 40;
+
+        var widthOfList = function () {
+            var itemsWidth = 0;
+            $('.list a').each(function () {
+                var itemWidth = $(this).outerWidth();
+                itemsWidth += itemWidth;
+            });
+            return itemsWidth;
+        };
+
+        var widthOfHidden = function () {
+            return (($('.wrapper').outerWidth()) - widthOfList() - getLeftPosi()) - scrollBarWidths;
+        };
+
+        var getLeftPosi = function () {
+            return $('.list').position().left;
+        };
+
+        var reAdjust = function () {
+            if (($('.wrapper').outerWidth()) < widthOfList()) {
+                $('.scroller-right').show().css('display', 'flex');
+            }
+            else {
+                $('.scroller-right').hide();
+            }
+
+            if (getLeftPosi() < 0) {
+                $('.scroller-left').show().css('display', 'flex');
+            }
+            else {
+                $('.item').animate({ left: "-=" + getLeftPosi() + "px" }, 'slow');
+                $('.scroller-left').hide();
+            }
+        }
+
+        reAdjust();
+
+        $(window).on('resize', function (e) {
+            reAdjust();
+        });
+
+        $('.scroller-right').click(function () {
+
+            $('.scroller-left').fadeIn('slow');
+            $('.scroller-right').fadeOut('slow');
+
+            $('.list').animate({ left: "+=" + widthOfHidden() + "px" }, 'slow', function () {
+
+            });
+        });
+
+        $('.scroller-left').click(function () {
+
+            $('.scroller-right').fadeIn('slow');
+            $('.scroller-left').fadeOut('slow');
+
+            $('.list').animate({ left: "-=" + getLeftPosi() + "px" }, 'slow', function () {
+
+            });
+        });
+    </script>
+
+    <!--Tree Chart-->
+    <script>
+        Highcharts.chart('tree', {
+            chart: {
+                height: 220,
+                inverted: true
+            },
+            title: {
+                text: ''
+            },
+            series: [{
+                type: 'organization',
+                name: '',
+                keys: ['from', 'to'],
+                data: [
+
+                    ['Organization', 'Department1'],
+                    ['Organization', 'Department2'],
+                    ['Department1', 'Section1'],
+                    ['Department1', 'Section2'],
+                    ['Department2', 'Section3'],
+                    ['Department2', 'Section4']
+                ],
+                levels: [{
+                    level: 0,
+                    color: '#EAF4F9',
+                    borderWidth: 2,
+                    borderColor: '#008BB5',
+                    dataLabels: {
+                        color: '#434343'
+                    },
+                    height: 25
+                }, {
+                    level: 1,
+                    color: '#EAF4F9',
+                    borderWidth: 2,
+                    borderColor: '#008BB5',
+                    dataLabels: {
+                        color: '#434343'
+                    },
+                    height: 25
+                }, {
+                    level: 2,
+                    color: '#EAF4F9',
+                    borderWidth: 2,
+                    borderColor: '#008BB5',
+                    dataLabels: {
+                        color: '#434343'
+                    }
+                }, {
+                    level: 4,
+                    color: '#EAF4F9',
+                    borderWidth: 2,
+                    borderColor: '#008BB5',
+                    dataLabels: {
+                        color: '#434343'
+                    }
+                }],
+                nodes: [{
+                    id: 'Organization',
+                    title: '',
+                    name: 'Organization',
+                    image: '/assets/images/archimate icons/outcome-purple.svg'
+
+                }, {
+                    id: 'Department1',
+                    title: '',
+                    name: 'Department1',
+                    image: '/assets/images/archimate icons/location-orange.svg',
+                    column: 1,
+
+
+                }, {
+                    id: 'Department2',
+                    title: '',
+                    name: 'Department2',
+                    image: '/assets/images/archimate icons/actor-yellow.svg',
+                    column: 1,
+
+
+                }, {
+                    id: 'Section1',
+                    column: 2,
+                    title: '',
+                    name: 'Section1',
+                    image: '/assets/images/archimate icons/function-green.svg',
+
+                }, {
+                    id: 'Section2',
+                    column: 2,
+                    title: '',
+                    name: 'Section2',
+                    image: '/assets/images/archimate icons/application-component-blue.svg',
+
+                }, {
+                    id: 'Section3',
+                    column: 2,
+                    title: '',
+                    name: 'Section3',
+                    image: '/assets/images/archimate icons/technology-process-green.svg',
+
+                }, {
+                    id: 'Section4',
+                    column: 2,
+                    title: '',
+                    name: 'Section4',
+                    image: '/assets/images/archimate icons/implementation-red.svg',
+
+                }],
+                colorByPoint: false,
+                color: '#007ad0',
+                dataLabels: {
+                    color: 'white'
+                },
+                borderColor: 'white',
+                nodeWidth: 35
+            }],
+            tooltip: {
+                outside: true
+            },
+            exporting: {
+                allowHTML: true,
+                sourceWidth: 800,
+                sourceHeight: 600
+            }
+        });
+
+    </script>
 </body>
 </html>
